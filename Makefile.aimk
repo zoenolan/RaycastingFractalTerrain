@@ -1,0 +1,71 @@
+#
+# Makefile.aimk for PVM example programs both both the Paramid and.
+# a network of Sun workstations
+#
+
+LIBGL = -lGL
+LIBGLU = -lGLU
+LIBAUX = /usr/share/src/OpenGL/libaux/libaux.a
+LCDEFS = -DUNIX -D_GL_X -Dmips -D_GL_DOUBLE -D__STDC__=1 -U__EXTENSIONS__
+LCINCS = -I$(ROOT)/usr/include/GL -I/usr/share/src/OpenGL/libaux -I.ls
+LLDLIBS = $(LIBGLU) $(LIBGL) -lXext -lX11 -lm
+
+SDIR	=	..
+BDIR	=	$(HOME)/pvm3/bin
+XDIR	=	$(BDIR)/$(PVM_ARCH)
+
+CC1	=	gcc
+CFLAGS1	=	-g -I/opt/transtech/include
+LIBS1	=	-lpvm3 -lparmacsh
+LFLAGS1	=	-L/opt/transtech/lib
+
+CC2	=	pgcc
+CFLAGS2	=	
+LIBS2	=	-lpvm3 -lparmacsn
+
+CC	=	cc
+CFLAGS	=	-g -I$(PVM_ROOT)/include $(LCDEFS) $(LCINCS)
+CFLAGS3 =       -I$(PVM_ROOT)/include $(LCINCS)
+LIBS	=	-lpvm3 $(ARCHLIB) $(LIBAUX)
+LFLAGS	=	-L$(PVM_ROOT)/lib/$(PVM_ARCH) $(LIBGL) $(LIBGLU) $(LLDLIBS)
+
+default:	pmdmaster pmdworker
+
+works:		sunmaster sunworker
+
+clean:
+	rm -f *.o $(XDIR)/master $(XDIR)/worker
+
+$(XDIR):
+	- mkdir $(BDIR)
+	- mkdir $(XDIR)
+
+sunmaster: $(SDIR)/master.c $(XDIR)
+	$(CC) $(CFLAGS) -o master $(SDIR)/master.c $(LFLAGS) $(LIBS)
+	mv master $(XDIR)
+
+sunworker: $(SDIR)/worker.c $(XDIR)
+	$(CC) $(CFLAGS) -o worker $(SDIR)/worker.c $(LFLAGS) $(LIBS)
+	mv worker $(XDIR)
+
+pmdmaster: $(SDIR)/master.c $(XDIR)
+	   $(CC1) $(CFLAGS1) -o master $(SDIR)/master.c $(LFLAGS1) $(LIBS1)
+	   mv master $(XDIR)
+
+pmdworker: $(SDIR)/worker.c $(XDIR)
+	$(CC2) $(CFLAGS2) -o worker $(SDIR)/worker.c $(LFLAGS2) $(LIBS2)
+	mv worker $(XDIR)
+
+main:
+	$(CC1) $(CFLAGS3) -o main $(SDIR)/main.c $(LFLAGS) $(LIBS)
+	mv main $(XDIR)
+
+
+worker:
+	$(CC1) $(CFLAGS3) -o worker $(SDIR)/worker.c $(LFLAGS) $(LIBS)
+	mv worker $(XDIR)
+
+
+
+
+
