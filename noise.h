@@ -16,7 +16,7 @@
 
 float bias(float a, float b)
 {
-   return pow(a, log(b) / log(0.5));
+	return pow(a, log(b) / log(0.5));
 }
 
 
@@ -25,21 +25,21 @@ float gain(float a, float b)
 	float p = log(1. - b) / log(0.5);
 
 	if (a < .001)
-          {
-           return 0.;
-          }
+	{
+		return 0.;
+	}
 	else if (a > .999)
-          {
-	   return 1.;
-          }
+	{
+		return 1.;
+	}
 	if (a < 0.5)
-          {
-           return pow(2 * a, p) / 2;
-          }
+	{
+		return pow(2 * a, p) / 2;
+	}
 	else
-          {
-	   return 1. - pow(2 * (1. - a), p) / 2;
-          }
+	{
+		return 1. - pow(2 * (1. - a), p) / 2;
+	}
 }
 
 float noise1(float arg);
@@ -50,16 +50,16 @@ float noise3(float vec[]);
 float noise(float vec[], int len)
 {
 	switch (len) 
-          {
-	   case 0:
+	{
+	case 0:
 		return 0.;
-	   case 1:
+	case 1:
 		return noise1(vec[0]);
-	   case 2:
+	case 2:
 		return noise2(vec);
-	   default:
+	default:
 		return noise3(vec);
-	  }
+	}
 }
 
 float turbulence(float *v, float freq)
@@ -67,11 +67,11 @@ float turbulence(float *v, float freq)
 	float t, vec[3];
 
 	for (t = 0. ; freq >= 1. ; freq /= 2) 
-          {
-	   vec[0] = freq * v[0];
-	   vec[1] = freq * v[1];
-	   vec[2] = freq * v[2];
-	   t=t+fabs(noise3(vec)) / freq;
+	{
+		vec[0] = freq * v[0];
+		vec[1] = freq * v[1];
+		vec[2] = freq * v[2];
+		t=t+fabs(noise3(vec)) / freq;
 	}
 	return t;
 }
@@ -115,10 +115,10 @@ float noise1(float arg)
 
 	vec[0] = arg;
 	if (start) 
-          {
-	   start = 0;
-	   init();
-	  }
+	{
+		start = 0;
+		init();
+	}
 
 	setup(0, bx0,bx1, rx0,rx1);
 
@@ -137,10 +137,10 @@ float noise2(float vec[2])
 	register i, j;
 
 	if (start) 
-          {
-	   start = 0;
-	   init();
-	  }
+	{
+		start = 0;
+		init();
+	}
 
 	setup(0, bx0,bx1, rx0,rx1);
 	setup(1, by0,by1, ry0,ry1);
@@ -176,10 +176,10 @@ float noise3(float vec[3])
 	register i, j;
 
 	if (start) 
-          {
-	   start = 0;
-	   init();
-	  }
+	{
+		start = 0;
+		init();
+	}
 
 	setup(0, bx0,bx1, rx0,rx1);
 	setup(1, by0,by1, ry0,ry1);
@@ -246,43 +246,43 @@ static void init(void)
 	int i, j, k;
 
 	for (i = 0 ; i < B ; i++) 
-          {
-	   p[i] = i;
+	{
+		p[i] = i;
 
-	   g1[i] = (float)((random() % (B + B)) - B) / B;
+		g1[i] = (float)((random() % (B + B)) - B) / B;
 
-	   for (j = 0 ; j < 2 ; j++)
-             {
-              g2[i][j] = (float)((random() % (B + B)) - B) / B;
-             }
-	   normalize2(g2[i]);
+		for (j = 0 ; j < 2 ; j++)
+		{
+			g2[i][j] = (float)((random() % (B + B)) - B) / B;
+		}
+		normalize2(g2[i]);
 
-	   for (j = 0 ; j < 3 ; j++)
-             {
-	      g3[i][j] = (float)((random() % (B + B)) - B) / B;
-             }	
-	   normalize3(g3[i]);
-	  }
+		for (j = 0 ; j < 3 ; j++)
+		{
+			g3[i][j] = (float)((random() % (B + B)) - B) / B;
+		}	
+		normalize3(g3[i]);
+	}
 
 	while (--i) 
-          {
-	   k = p[i];
-	   p[i] = p[j = random() % B];
-	   p[j] = k;
-	  }
+	{
+		k = p[i];
+		p[i] = p[j = random() % B];
+		p[j] = k;
+	}
 
 	for (i = 0 ; i < B + 2 ; i++) 
-          {
-	   p[B + i] = p[i];
-	   g1[B + i] = g1[i];
-	   for (j = 0 ; j < 2 ; j++)
-             {
-	      g2[B + i][j] = g2[i][j];
-             }
-	   for (j = 0 ; j < 3 ; j++)
-             {
-	      g3[B + i][j] = g3[i][j];
-             }
+	{
+		p[B + i] = p[i];
+		g1[B + i] = g1[i];
+		for (j = 0 ; j < 2 ; j++)
+		{
+			g2[B + i][j] = g2[i][j];
+		}
+		for (j = 0 ; j < 3 ; j++)
+		{
+			g3[B + i][j] = g3[i][j];
+		}
 	}
 }
 

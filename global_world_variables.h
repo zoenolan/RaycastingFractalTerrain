@@ -4,20 +4,20 @@
 
 
 #define NUMBER_OF_TERRAIN_COLOURS 25 	/* this is the number of colours */
-					/* for the terrain */
-					
+/* for the terrain */
+
 double H ; 				/* determines the fractal */
-					/* dimension of the roughest areas */
+/* dimension of the roughest areas */
 double Lacunarity ; 			/* the gap between frequencies */ 
 double Octaves ; 			/* the number of octaves in the */ 
-					/* terrain */
+/* terrain */
 double Offset ; 			/* the offset from 0 of the */
-					/* terrain */
+/* terrain */
 
 double Colour_boundaries[NUMBER_OF_TERRAIN_COLOURS] ;
-					/* boundaries between the colours */
+/* boundaries between the colours */
 colour Terrain_colours[NUMBER_OF_TERRAIN_COLOURS] ;
-					/* terain colours */
+/* terain colours */
 colour Sky ;				/* the sky colour */
 colour Horizon ;			/* the Horizon colour */
 colour Fog ;				/* the fog colour */

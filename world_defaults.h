@@ -1,5 +1,5 @@
 /*									*/
-/* world tokens								*/
+/* world tokens						*/
 /*									*/
 #define H_TOKEN	"h_value"
 #define LACUNARITY_TOKEN "lacunarity"
@@ -80,7 +80,7 @@
 #define  DEFAULT_OFFSET     0.0         /* Offset from sea level 	*/
 
 /* colour boundaries from 1 to 0 */
-					/* top */
+/* top */
 #define  DEFAULT_COLOUR_BOUNDARIES_01   0.65 
 #define  DEFAULT_COLOUR_BOUNDARIES_02   0.60 
 #define  DEFAULT_COLOUR_BOUNDARIES_03   0.52 
@@ -106,9 +106,9 @@
 #define  DEFAULT_COLOUR_BOUNDARIES_23   0.05 
 #define  DEFAULT_COLOUR_BOUNDARIES_24   0.03
 #define  DEFAULT_COLOUR_BOUNDARIES_25   0.01
-					/* bottom */
+/* bottom */
 /* default landscape colours */
-					/* top */
+/* top */
 #define  DEFAULT_COLOUR_00_RED		1.0		
 #define  DEFAULT_COLOUR_00_GREEN	1.0		
 #define  DEFAULT_COLOUR_00_BLUE		1.0
@@ -208,7 +208,7 @@
 #define  DEFAULT_COLOUR_24_RED		0.9			
 #define  DEFAULT_COLOUR_24_GREEN	0.9		
 #define  DEFAULT_COLOUR_24_BLUE		0.4
-					/* bottom */
+/* bottom */
 
 #define  DEFAULT_SKY_COLOUR_RED		0.3
 #define  DEFAULT_SKY_COLOUR_GREEN	0.3
