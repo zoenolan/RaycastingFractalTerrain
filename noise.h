@@ -19,7 +19,6 @@ float bias(float a, float b)
 	return pow(a, log(b) / log(0.5));
 }
 
-
 float gain(float a, float b)
 {
 	float p = log(1. - b) / log(0.5);
@@ -49,7 +48,7 @@ float noise3(float vec[]);
 /* select which noise function to use */
 float noise(float vec[], int len)
 {
-	switch (len) 
+	switch (len)
 	{
 	case 0:
 		return 0.;
@@ -66,7 +65,7 @@ float turbulence(float *v, float freq)
 {
 	float t, vec[3];
 
-	for (t = 0. ; freq >= 1. ; freq /= 2) 
+	for (t = 0. ; freq >= 1. ; freq /= 2)
 	{
 		vec[0] = freq * v[0];
 		vec[1] = freq * v[1];
@@ -114,7 +113,7 @@ float noise1(float arg)
 	float rx0, rx1, sx, t, u, v, vec[1];
 
 	vec[0] = arg;
-	if (start) 
+	if (start)
 	{
 		start = 0;
 		init();
@@ -136,7 +135,7 @@ float noise2(float vec[2])
 	float rx0, rx1, ry0, ry1, *q, sx, sy, a, b, t, u, v;
 	register i, j;
 
-	if (start) 
+	if (start)
 	{
 		start = 0;
 		init();
@@ -175,7 +174,7 @@ float noise3(float vec[3])
 	float rx0, rx1, ry0, ry1, rz0, rz1, *q, sy, sz, a, b, c, d, t, u, v;
 	register i, j;
 
-	if (start) 
+	if (start)
 	{
 		start = 0;
 		init();
@@ -245,7 +244,7 @@ static void init(void)
 {
 	int i, j, k;
 
-	for (i = 0 ; i < B ; i++) 
+	for (i = 0 ; i < B ; i++)
 	{
 		p[i] = i;
 
@@ -260,18 +259,18 @@ static void init(void)
 		for (j = 0 ; j < 3 ; j++)
 		{
 			g3[i][j] = (float)((random() % (B + B)) - B) / B;
-		}	
+		}
 		normalize3(g3[i]);
 	}
 
-	while (--i) 
+	while (--i)
 	{
 		k = p[i];
 		p[i] = p[j = random() % B];
 		p[j] = k;
 	}
 
-	for (i = 0 ; i < B + 2 ; i++) 
+	for (i = 0 ; i < B + 2 ; i++)
 	{
 		p[B + i] = p[i];
 		g1[B + i] = g1[i];
@@ -285,5 +284,3 @@ static void init(void)
 		}
 	}
 }
-
-

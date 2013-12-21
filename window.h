@@ -2,13 +2,11 @@
 /* Window functions fro the engine					*/
 /*									*/
 
-
 /*                                                                      */
 /* Text Strings                                                         */
 /*                                                                      */
 
 #define  PROGRAM_NAME        "-= Terrain Engine =-" /* name of the window */
-
 
 /*                                                                      */
 /*                                                                      */
@@ -37,9 +35,7 @@ open_window()
 	glDisable(GL_STENCIL_TEST);
 	glDisable(GL_TEXTURE_1D);
 	glDisable(GL_TEXTURE_2D);
-
 }
 /*                                                                      */
 /* end setup window                                                     */
 /*                                                                      */
-

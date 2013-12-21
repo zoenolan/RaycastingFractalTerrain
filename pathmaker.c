@@ -16,7 +16,6 @@ int main ()
 		fprintf(stderr, "Cannot open file\n");
 	}
 
-
 	while (Counter <END_VALUE)
 	{
 		X=0 ;
@@ -24,8 +23,7 @@ int main ()
 		Angle=0 ;
 		fprintf(Output, "position = %f,%f,%f\n",X,Y,Angle);
 		Counter++ ;
-	} 
+	}
 
 	fclose (Output) ;
-
 }

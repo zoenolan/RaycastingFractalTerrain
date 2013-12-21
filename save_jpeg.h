@@ -4,10 +4,10 @@
 * This is for saving a 24-bit jpeg file from inside a program.
 *
 * This file illustrates how to use the IJG code as a subroutine library
-* to write JPEG image files. 
+* to write JPEG image files.
 *
 * This code will not do anything useful as-is, but it may be helpful as a
-* skeleton for constructing routines that call the JPEG library.  
+* skeleton for constructing routines that call the JPEG library.
 *
 * We present these routines in the same coding style used in the JPEG code
 * (ANSI function definitions, etc); but you are of course free to code your
@@ -34,15 +34,12 @@
 
 #include <setjmp.h>
 
-
-
 /******************** JPEG COMPRESSION SAMPLE INTERFACE *******************/
 
 /* This half of the example shows how to feed data into the JPEG compressor.
 * We present a minimal version that does not worry about refinements such
 * as error recovery (the JPEG code will just exit() if it gets an error).
 */
-
 
 /*
 * IMAGE DATA FORMATS:
@@ -59,7 +56,6 @@
 * pointer to our image buffer.  In particular, let's say that the image is
 * RGB color and is described by:
 */
-
 
 /*
 * Sample routine for JPEG compression.  We assume that the target file name

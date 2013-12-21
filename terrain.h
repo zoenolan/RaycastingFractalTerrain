@@ -1,10 +1,8 @@
 /*
-A Heterogeneous terrain using perlin's noise functions 
+A Heterogeneous terrain using perlin's noise functions
 */
 
-
 #include "noise.h"      /* Perlin's  noise functions */
-
 
 /*
 * heterogeneous procedural terrain function :stats by altitude method.
@@ -18,10 +16,9 @@ A Heterogeneous terrain using perlin's noise functions
 *
 */
 
-double HeteroTerrain(float point[3],double H,double lacunarity,double 
+double HeteroTerrain(float point[3],double H,double lacunarity,double
 					 octaves,double offset)
 {
-
 	double value,increment,frequency,remainder;
 
 	int i;
@@ -32,13 +29,13 @@ double HeteroTerrain(float point[3],double H,double lacunarity,double
 
 	/* precompute and store spectral weights for efficiency */
 
-	if (first) 
+	if (first)
 	{
 		/* seize required amount of memory for the exponentArray */
 		exponentArray = (double *) malloc( (int)((octaves+1) * sizeof(double)) );
 
 		/* if the memory can not be allocated exit and display an error message */
-		if (exponentArray==NULL) 
+		if (exponentArray==NULL)
 		{
 			fprintf(stderr,"Couldn't get enougn memory!\n");
 			exit(1);
@@ -48,7 +45,6 @@ double HeteroTerrain(float point[3],double H,double lacunarity,double
 
 		for (i=0;i<=octaves;i++)
 		{
-
 			/* compute weight for each frequency */
 			exponentArray[i]=pow(frequency,-H);
 			frequency*=lacunarity;
@@ -64,7 +60,7 @@ double HeteroTerrain(float point[3],double H,double lacunarity,double
 	point[2]*=lacunarity;
 
 	/* spectral constuction inner loop, where the fractal is built */
-	for (i=1;i<octaves;i++) 
+	for (i=1;i<octaves;i++)
 	{
 		/* obtain displaced noise value */
 		/* scale amplitude appropriately for this frequency */
@@ -77,7 +73,7 @@ double HeteroTerrain(float point[3],double H,double lacunarity,double
 		/* raise spacial frequency */
 		point[0]*=lacunarity;
 		point[1]*=lacunarity;
-		point[2]*=lacunarity; 	               
+		point[2]*=lacunarity;
 	}
 
 	/* take care of remainder in octaves */
@@ -92,6 +88,5 @@ double HeteroTerrain(float point[3],double H,double lacunarity,double
 		value+=remainder*increment*value;
 	}
 	return value;
-
 }
 /* end */

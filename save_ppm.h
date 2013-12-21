@@ -1,4 +1,4 @@
-void  save_ppm (char *Filename, unsigned char *Image, int Width, 
+void  save_ppm (char *Filename, unsigned char *Image, int Width,
 				int Height, int Max_value)
 {
 	register int X, Y;
@@ -21,8 +21,8 @@ void  save_ppm (char *Filename, unsigned char *Image, int Width,
 	{
 		for ( X = 0; X < Width; X++ )
 		{
-			R = Image[(Y*3*Width)+(X*3)+0];  
-			G = Image[(Y*3*Width)+(X*3)+1];    
+			R = Image[(Y*3*Width)+(X*3)+0];
+			G = Image[(Y*3*Width)+(X*3)+1];
 			B = Image[(Y*3*Width)+(X*3)+2];
 
 			fwrite(&R, 1, 1, Output);

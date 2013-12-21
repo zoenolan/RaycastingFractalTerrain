@@ -14,8 +14,8 @@
 /*                 */
 /*******************/
 
-#include <stddef.h>  
-#include <stdlib.h>  
+#include <stddef.h>
+#include <stdlib.h>
 #include <math.h>
 #include "pvm3.h"                       /* PVM include */
 
@@ -30,7 +30,6 @@
 #define NORMAL_HEIGHT 0.0020		/* height of the normal vector */
 #define MIN_OCTAVES   3			/* the min number of octaves in */
 /* the terrain */
-
 
 /*									*/
 /* Global variables							*/
@@ -48,7 +47,7 @@ int Parent ;          			/* Parent task ID */
 /*									*/
 /*									*/
 
-work() 
+work()
 {
 	viewer Camera ;	/* viewpoint */
 	viewer Temp ;         /* viewpoint */
@@ -62,11 +61,11 @@ work()
 
 	int Jumps ;           /* Number of jumps taken */
 
-	double Add_vector[3] ;/* The Vector that is added to the ray each step*/ 
+	double Add_vector[3] ;/* The Vector that is added to the ray each step*/
 
 	float Point[2] ;      /* 2D noise coordinates */
 
-	double Jump_size ;    /* Jump size */  
+	double Jump_size ;    /* Jump size */
 
 	int Sky_flag ;	/* Flag to show that the sky has been reached */
 
@@ -107,7 +106,7 @@ work()
 	pvm_upkdouble(&Camera.Y_angle,1,1) ;
 	pvm_upkdouble(&Camera.Z_angle,1,1) ;
 
-	/*						*/     
+	/*						*/
 	/* calculate all the heights for this section 	*/
 	/*						*/
 
@@ -119,7 +118,6 @@ work()
 
 	for (X_counter=0;X_counter<(Pixel_buffer_width+2);X_counter++)
 	{
-
 		/* set up x angle for this */
 		Temp.X_angle=Camera.X_angle-(Y_view_angle/2) ;
 
@@ -136,7 +134,6 @@ work()
 
 		while ( (Y_counter<(User_view.Y_size)) && (Distance<Fog_end))
 		{
-
 			/* do each ray */
 
 			/* calculate the vector to add on each step */
@@ -164,8 +161,7 @@ work()
 
 			while ( (Distance<Fog_end) &&
 				(Height>(double)HeteroTerrain(Point,H,Lacunarity,Octaves_used,Offset)))
-			{ 
-
+			{
 				/* set jump size */
 				Jump_size=1+Distance*(Fog_end/(Fog_end-Distance));
 
@@ -184,13 +180,12 @@ work()
 
 				Height=Temp.Z/MAP_SIZE ;
 
-				/*				*/             
+				/*				*/
 				/* update point 		*/
 				/*				*/
 
 				Point[0]=(float)(Temp.X/MAP_SIZE) ;
 				Point[1]=(float)(Temp.Y/MAP_SIZE) ;
-
 			}  ;
 			/*									*/
 			/* the ray now has hit the landscape or travelled past the max distance */
@@ -198,10 +193,10 @@ work()
 
 			/* check distance */
 			if ( ( Distance>Fog_end) )
-			{   
+			{
 				/* ray moved passed the drawing limit */
 
-				for 
+				for
 					(Sky_counter=Y_counter;
 				Sky_counter<(User_view.Y_size);
 				Sky_counter++)
@@ -209,7 +204,7 @@ work()
 					/* save the height in the buffer */
 					Height_buffer
 						[(Sky_counter*(Pixel_buffer_width+2)*2)+
-						(X_counter*2)]=-1 ;   
+						(X_counter*2)]=-1 ;
 					Height_buffer
 						[(Sky_counter*(Pixel_buffer_width+2)*2)+
 						(X_counter*2)+1]=Distance ;
@@ -218,7 +213,7 @@ work()
 			else
 			{
 				/* save the height in the buffer */
-				Height_buffer  
+				Height_buffer
 					[(Y_counter*(Pixel_buffer_width+2)*2)+
 					(X_counter*2)]=Temp.Z  ;
 				Height_buffer
@@ -239,22 +234,20 @@ work()
 		Temp.Z_angle=Temp.Z_angle+X_ray_angle ;
 	}
 	/*                                                                      */
-	/* end of buffer loop                                                   */ 
+	/* end of buffer loop                                                   */
 	/*                                                                      */
-
 
 	/*                                                                      */
 	/* Pixel loop 								*/
 	/*                                                                      */
 
 	/* buffer x loop */
-	for    
+	for
 		(X_pixel_counter=1;
 	X_pixel_counter<(Pixel_buffer_width+1);
 	X_pixel_counter++)
 	{
-
-		/* set sky flag */  
+		/* set sky flag */
 		Sky_flag=0 ;	/* sky not reached */
 
 		for (Y_pixel_counter=0;
@@ -341,13 +334,13 @@ work()
 				Normal[2]=NORMAL_HEIGHT  ;
 
 				/* normalise the vector */
-				normalize_3d(Normal) ;  
+				normalize_3d(Normal) ;
 
 				/* work out the angle between that normal and the light source */
 
 				Diffuse=dot(Light_source,Normal) ;
 				if (Diffuse<0)
-				{ 
+				{
 					/* if the value is less than 0 set that point to black */
 					Diffuse=0.0 ;
 				}
@@ -355,18 +348,17 @@ work()
 				Light=Ambient_light+Diffuse*(1-Ambient_light) ;
 
 				/* limit colour value */
-				if (Light>1.0) 
+				if (Light>1.0)
 				{
 					Light=1.0 ;
-				}  
+				}
 
 				/* colour the landscape depending on height */
 				Colour_counter=0 ;
 
-
 				/* find the right colour */
 				while ((Colour_boundaries[Colour_counter]>Temp.Z)
-					&& (Colour_counter<NUMBER_OF_TERRAIN_COLOURS) ) 
+					&& (Colour_counter<NUMBER_OF_TERRAIN_COLOURS) )
 				{
 					Colour_counter++ ;
 				}
@@ -392,16 +384,13 @@ work()
 						Pixel.Green+(Fog.Green-Pixel.Green)*Fog_factor ;
 					Pixel.Blue=
 						Pixel.Blue+(Fog.Blue-Pixel.Blue)*Fog_factor ;
-
 				}
 				/* end of fogging */
-
-			}               
+			}
 
 			/*                                                                      */
 			/* end of landscape shading and fogging code                            */
 			/*                                                                      */
-
 
 			/* save the colours in the pixel buffer*/
 			Pixel_buffer
@@ -414,31 +403,27 @@ work()
 				[(Y_pixel_counter*Pixel_buffer_width*3)+
 				((X_pixel_counter-1)*3)+2]=(unsigned char)(255.0*Pixel.Blue) ;
 
-
 			/* end drawing section */
 		}
-		/* end y loop */		     
-
+		/* end y loop */
 	}
 	/* end x loop */
 
 	/* send message to engine */
-	pvm_initsend (PvmDataDefault) ;   
+	pvm_initsend (PvmDataDefault) ;
 	pvm_pkbyte (Pixel_buffer,Pixel_buffer_size,1) ;
-	pvm_send (Parent,DATA) ;      
-
+	pvm_send (Parent,DATA) ;
 }
 /*									*/
 /* end drawing section 							*/
 /*									*/
-
 
 /*									*/
 /* main program								*/
 /*									*/
 
 main (int argc, char** argv)
-{    
+{
 	int End_flag=0 ;      /* flag for exiting the worker */
 	int Message_counter ; /* Used for message unpacking */
 
@@ -451,7 +436,7 @@ main (int argc, char** argv)
 	Parent=pvm_parent() ;
 
 	/* get message containing start angles and x,y,z positions */
-	pvm_recv (Parent,INFO) ;   
+	pvm_recv (Parent,INFO) ;
 
 	/* tell the worker what values to use for the terrain function */
 	pvm_upkdouble(&H,1,1);
@@ -479,7 +464,6 @@ main (int argc, char** argv)
 		Message_counter<NUMBER_OF_TERRAIN_COLOURS ;
 		Message_counter++ )
 	{
-
 		pvm_upkfloat(&Terrain_colours[Message_counter].Red,1,1) ;
 		pvm_upkfloat(&Terrain_colours[Message_counter].Green,1,1) ;
 		pvm_upkfloat(&Terrain_colours[Message_counter].Blue,1,1) ;
@@ -504,7 +488,7 @@ main (int argc, char** argv)
 		(Pixel_buffer_size*sizeof(unsigned char)) ;
 
 	/* set up the height buffer */
-	Height_buffer=(double *) malloc 
+	Height_buffer=(double *) malloc
 		((Pixel_buffer_width+2)*User_view.Y_size*2*sizeof(double)) ;
 
 	/* tell the worker what values to use for the light source */
@@ -518,7 +502,6 @@ main (int argc, char** argv)
 	{
 		if (pvm_probe (Parent,KILL))
 		{
-
 			/* get the kill message */
 			pvm_recv(Parent,KILL) ;
 			End_flag=1 ;
@@ -526,7 +509,6 @@ main (int argc, char** argv)
 
 		else if (pvm_probe (Parent,NEW_LIGHT_SOURCE))
 		{
-
 			/* new light source */
 			pvm_recv(Parent,NEW_LIGHT_SOURCE) ;
 			pvm_upkdouble(Light_source,3,1) ;
@@ -534,11 +516,9 @@ main (int argc, char** argv)
 
 		else if (pvm_probe (Parent,WORK))
 		{
-
 			/* do the work */
 			work() ;
 		}
-
 	} /* end while */
 
 	/* exit pvm */
@@ -549,6 +529,5 @@ main (int argc, char** argv)
 
 	/* free the height buffer */
 	free (Height_buffer) ;
-
 }
 /* end of worker */

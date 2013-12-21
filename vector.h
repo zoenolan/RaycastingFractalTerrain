@@ -2,17 +2,16 @@
 /* 3D vector maths routines for the engine				*/
 /*									*/
 
-
 /*                                                                      */
 /* dot product for 2 3-D vector                                         */
 /*                                                                      */
 
 double dot (double a[3],double b[3])
 {
-	double output; 
+	double output;
 
 	output=(a[0]*b[0])+(a[1]*b[1])+(a[2]*b[2]) ;
-	return (output) ;  
+	return (output) ;
 }
 /*                                                                      */
 /* end dot                                                              */
@@ -40,4 +39,3 @@ void normalize_3d(double vector[3])
 /*                                                                      */
 /* end normalise 3d                                                     */
 /*                                                                      */
-

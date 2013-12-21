@@ -36,7 +36,6 @@
 #define PATH_TOKEN "-path"               /* path command line option   */
 #define POSITION_TOKEN "position"        /* position token in file */
 
-
 int            *Worker_tids;            /* worker tids 		    */
 viewer         User ;			/* user view point	    */
 double         Light_source[3] ;        /* light source vector      */
@@ -44,7 +43,6 @@ double         Light_source[3] ;        /* light source vector      */
 unsigned char  *Image_buffer ;          /* image buffer		    */
 double         Height ;                 /* height from terrain      */
 char   *Path_file_name ;                /* file name for path  */
-
 
 /* 									*/
 /* exit system								*/
@@ -70,9 +68,7 @@ void kill_workers ()
 	free (Worker_tids) ;
 
 	/* exit the program */
-
 }
-
 
 /*									*/
 /* main rendering loop							*/
@@ -118,7 +114,6 @@ render_frame()
 
 		/* set the viewpoint for the next one */
 		Viewpoint.Z_angle=Viewpoint.Z_angle+Block_angle ;
-
 	}
 	/* end of for loop */
 	/* finished sending the data */
@@ -184,14 +179,11 @@ render_frame()
 				}
 			}
 			/* end the if */
-
 		}
 		/* end the while loop */
 
 		/* end drawing code */
 	}
-
-
 }
 /*                                                                      */
 /* Main loop                                                            */
@@ -215,7 +207,7 @@ static void display_loop ()
 	Point3[0]=(float)User.X-(cos(User.Z_angle)*MOVE_STEP*5) ;
 	Point3[1]=(float)User.Y-(sin(User.Z_angle)*MOVE_STEP*5) ;
 
-	if 
+	if
 		(HeteroTerrain(Point1,H,Lacunarity,Octaves,Offset)>
 		HeteroTerrain(Point2,H,Lacunarity,Octaves,Offset) )
 	{
@@ -247,7 +239,6 @@ static void display_loop ()
 	printf ("INFO: Time taken=%i usecs\n",Time_taken) ;
 }
 
-
 /*									*/
 /* main program 							*/
 /*									*/
@@ -275,7 +266,7 @@ void main (int argc, char** argv)
 	Argv=argv ;
 	read_config (Argc,Argv) ;
 
-	/* set up the pixel buffer and it's variables */ 
+	/* set up the pixel buffer and it's variables */
 	Pixel_buffer_width=User_view.X_size/Number_of_workers;
 	Pixel_buffer_size=
 		Pixel_buffer_width*User_view.Y_size*3*sizeof(unsigned char) ;
@@ -285,11 +276,11 @@ void main (int argc, char** argv)
 	Worker_tids=(int *)malloc(Number_of_workers*sizeof(int)) ;
 
 	/* set up the image buffer */
-	Image_buffer=(unsigned char *) malloc 
+	Image_buffer=(unsigned char *) malloc
 		((User_view.X_size*User_view.Y_size*3*sizeof(unsigned char))) ;
 
 	/* start up pvm */
-	if ((My_tid = pvm_mytid()) < 0) 
+	if ((My_tid = pvm_mytid()) < 0)
 	{
 		exit(1);
 	}
@@ -338,7 +329,7 @@ void main (int argc, char** argv)
 
 	/* tell the worker what values to use for the display */
 	pvm_pkdouble(&Ray_step,1,1) ;
-	pvm_pkdouble(&X_view_angle,1,1) ; 
+	pvm_pkdouble(&X_view_angle,1,1) ;
 	pvm_pkdouble(&Y_view_angle,1,1) ;
 	pvm_pkint(&Pixel_buffer_width,1,1) ;
 	pvm_pkint(&User_view.Y_size,1,1) ;
@@ -384,7 +375,7 @@ void main (int argc, char** argv)
 	File_name[16]='M' ;
 
 	/* move to the first argument */
-	argv++ ;   
+	argv++ ;
 	Arg_counter=1 ;
 
 	/* process the files */
@@ -437,7 +428,7 @@ void main (int argc, char** argv)
 					/* deal with values */
 
 					/*                                                              */
-					/* read position                                                */  
+					/* read position                                                */
 					/*                                                              */
 
 					if
@@ -468,8 +459,7 @@ void main (int argc, char** argv)
 							Counter=Counter+read_to_comma(&Line[Counter]) ;
 							Counter ++ ;
 							User.Z_angle=atof(&Line[Counter]) ;
-
-						} 
+						}
 					}
 
 					/* render the image */
@@ -485,7 +475,6 @@ void main (int argc, char** argv)
 					File_name[6]=(char)((Frame_counter/1000000%10)+'0') ;
 					File_name[5]=(char)((Frame_counter/10000000%10)+'0') ;
 
-
 					save_ppm(File_name,Image_buffer,User_view.X_size,
 						User_view.Y_size,255) ;
 					Frame_counter++ ;
@@ -500,7 +489,6 @@ void main (int argc, char** argv)
 
 	/* quit */
 	kill_workers() ;
-
 }
 /*									*/
 /* end of main								*/
