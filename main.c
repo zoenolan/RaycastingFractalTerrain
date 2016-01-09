@@ -1,18 +1,10 @@
 /* 									*/
 /* Fractal terrain real-time ray casting engine			  	*/
 /*									*/
-/* Version Final 96							*/
-/*									*/
-/* Zoe Nolan 								*/
-/*									*/
-/* 19/04/96								*/
-/* 									*/
 
 
-/*									*/
+
 /* includes        							*/
-/*									*/
-
 #include <stddef.h>
 #include <stdlib.h>
 #include <stdio.h>
