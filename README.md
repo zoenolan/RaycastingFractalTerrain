@@ -1,4 +1,4 @@
 Perlin noise based raycast terrain rendering using OpenGL and PVM
 ==================================================================
 
-My dissertation on terrain generation and rendering
+The source code for my dissertation on terrain generation and rendering
