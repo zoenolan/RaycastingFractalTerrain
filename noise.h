@@ -1,18 +1,10 @@
-/*									  */
-/* 1, 2 and 3 d noise functions 					  */
-/*									  */
-/* Ken Perlin								  */
-/*									  */
+/* Coherent noise function over 1, 2 or 3 dimensions */
+/* (copyright Ken Perlin) */
+/* From https://engineering.purdue.edu/~ebertd/texture/1stEdition/perlin/perlin.c */
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
-
-/************************/
-/*			*/
-/* functions		*/
-/*			*/
-/************************/
 
 float bias(float a, float b)
 {
@@ -24,32 +16,22 @@ float gain(float a, float b)
 	float p = log(1. - b) / log(0.5);
 
 	if (a < .001)
-	{
 		return 0.;
-	}
 	else if (a > .999)
-	{
 		return 1.;
-	}
 	if (a < 0.5)
-	{
 		return pow(2 * a, p) / 2;
-	}
 	else
-	{
 		return 1. - pow(2 * (1. - a), p) / 2;
-	}
 }
 
 float noise1(float arg);
 float noise2(float vec[]);
 float noise3(float vec[]);
 
-/* select which noise function to use */
 float noise(float vec[], int len)
 {
-	switch (len)
-	{
+	switch (len) {
 	case 0:
 		return 0.;
 	case 1:
@@ -65,19 +47,16 @@ float turbulence(float *v, float freq)
 {
 	float t, vec[3];
 
-	for (t = 0. ; freq >= 1. ; freq /= 2)
-	{
+	for (t = 0. ; freq >= 1. ; freq /= 2) {
 		vec[0] = freq * v[0];
 		vec[1] = freq * v[1];
 		vec[2] = freq * v[2];
-		t=t+fabs(noise3(vec)) / freq;
+		t += fabs(noise3(vec)) / freq;
 	}
 	return t;
 }
 
 /* noise functions over 1, 2, and 3 dimensions */
-
-/* define some Hex masks for the hashing function */
 
 #define B 0x100
 #define BM 0xff
@@ -105,16 +84,13 @@ static void init(void);
 	r0 = t - (int)t;\
 	r1 = r0 - 1.;
 
-/* 1-d noise */
-
 float noise1(float arg)
 {
 	int bx0, bx1;
 	float rx0, rx1, sx, t, u, v, vec[1];
 
 	vec[0] = arg;
-	if (start)
-	{
+	if (start) {
 		start = 0;
 		init();
 	}
@@ -135,8 +111,7 @@ float noise2(float vec[2])
 	float rx0, rx1, ry0, ry1, *q, sx, sy, a, b, t, u, v;
 	register i, j;
 
-	if (start)
-	{
+	if (start) {
 		start = 0;
 		init();
 	}
@@ -174,8 +149,7 @@ float noise3(float vec[3])
 	float rx0, rx1, ry0, ry1, rz0, rz1, *q, sy, sz, a, b, c, d, t, u, v;
 	register i, j;
 
-	if (start)
-	{
+	if (start) {
 		start = 0;
 		init();
 	}
@@ -244,43 +218,32 @@ static void init(void)
 {
 	int i, j, k;
 
-	for (i = 0 ; i < B ; i++)
-	{
+	for (i = 0 ; i < B ; i++) {
 		p[i] = i;
 
 		g1[i] = (float)((random() % (B + B)) - B) / B;
 
 		for (j = 0 ; j < 2 ; j++)
-		{
 			g2[i][j] = (float)((random() % (B + B)) - B) / B;
-		}
 		normalize2(g2[i]);
 
 		for (j = 0 ; j < 3 ; j++)
-		{
 			g3[i][j] = (float)((random() % (B + B)) - B) / B;
-		}
 		normalize3(g3[i]);
 	}
 
-	while (--i)
-	{
+	while (--i) {
 		k = p[i];
 		p[i] = p[j = random() % B];
 		p[j] = k;
 	}
 
-	for (i = 0 ; i < B + 2 ; i++)
-	{
+	for (i = 0 ; i < B + 2 ; i++) {
 		p[B + i] = p[i];
 		g1[B + i] = g1[i];
 		for (j = 0 ; j < 2 ; j++)
-		{
 			g2[B + i][j] = g2[i][j];
-		}
 		for (j = 0 ; j < 3 ; j++)
-		{
 			g3[B + i][j] = g3[i][j];
-		}
 	}
 }

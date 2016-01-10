@@ -1,20 +1,20 @@
 /*
-A Heterogeneous terrain using perlin's noise functions
-*/
+ * Heterogeneous procedural terrain function: stats by altitude method.
+ * Evaluated at "point"; returns value stored in "value".
+ *
+ * Copyright 1994 F. Kenton Musgrave 
+ * 
+ * Parameters:
+ *       ``H''  determines the fractal dimension of the roughest areas
+ *       ``lacunarity''  is the gap between successive frequencies
+ *       ``octaves''  is the number of frequencies in the fBm
+ *       ``offset''  raises the terrain from `sea level'
+ *
+ * From: https://engineering.purdue.edu/~ebertd/texture/1stEdition/musgrave/musgrave.c
+ * 
+ */
 
 #include "noise.h"      /* Perlin's  noise functions */
-
-/*
-* heterogeneous procedural terrain function :stats by altitude method.
-* Evalualeted at "point";retruns value stored in "value".
-*
-* Parameters:
-* 	h-determines the fractal dimension of the roughest areas
-*      lacunarity - is the gap between successive frequencies
-*      octaves - is the number of frequencies in the fBm
-*      offset - raises the terrain from "sea level"
-*
-*/
 
 double HeteroTerrain(float point[3],double H,double lacunarity,double
 					 octaves,double offset)
