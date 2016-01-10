@@ -1,6 +1,7 @@
 /* Coherent noise function over 1, 2 or 3 dimensions */
 /* (copyright Ken Perlin) */
-/* From https://engineering.purdue.edu/~ebertd/texture/1stEdition/perlin/perlin.c */
+/* From 'Texturing & Modeling A Procedural Approach' */
+/* https://engineering.purdue.edu/~ebertd/texture/1stEdition/perlin/perlin.c */
 
 #include <stdlib.h>
 #include <stdio.h>

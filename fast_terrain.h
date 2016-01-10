@@ -10,7 +10,8 @@
  *       ``octaves''  is the number of frequencies in the fBm
  *       ``offset''  raises the terrain from `sea level'
  *
- * From: https://engineering.purdue.edu/~ebertd/texture/1stEdition/musgrave/musgrave.c
+ * From 'Texturing & Modeling A Procedural Approach
+ * https://engineering.purdue.edu/~ebertd/texture/1stEdition/musgrave/musgrave.c
  *
  */
 
